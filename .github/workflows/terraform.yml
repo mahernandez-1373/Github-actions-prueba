@@ -1,19 +1,25 @@
-name: "Terraform Apply"
+name: "Terraform Apply"  
 
-push:
+on:
+  push:
     branches:
-      - develop  
+      - develop
 
 jobs:
-  deploy:
+  authenticate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
-  steps:
-  - id: 'auth'
-    name: 'Authenticate to Google Cloud'
-    uses: 'google-github-actions/auth@v0.4.0'
-    with:
-      credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v2
+
+    - name: Configurar ambiente de Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: abstract-aloe-426819-i2
+
+    - name: Autenticación en GCP
+      run: |
+        gcloud auth activate-service-account --key-file=${{ secrets.GCP_SA_KEY }}
+        gcloud config set project abstract-aloe-426819-i2
