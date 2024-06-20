@@ -5,7 +5,11 @@ push:
       - develop  
 
 jobs:
-  steps:
+  permissions:
+      contents: 'read'
+      id-token: 'write'
+
+  steps:    
   - id: 'auth'
     name: 'Authenticate to Google Cloud'
     uses: 'google-github-actions/auth@v0.4.0'
