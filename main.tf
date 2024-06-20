@@ -6,7 +6,19 @@
 ################################################################################
 # Cloud SQL Module GCP
 ################################################################################
-module "pg" {
+resource "google_sql_database_instance" "main" {
+  name             = "postgres-instance"
+  database_version = "POSTGRES_15"
+  region           = "us-central1"
+
+  settings {
+    # Second-generation instance tiers are based on the machine
+    # type. See argument reference below.
+    tier = "db-f1-micro"
+  }
+}
+
+/*module "pg" {
   source = "./modules/cloud-sql"
 
   pg_ha_name          = "postgres-db"
@@ -27,7 +39,7 @@ module "pg" {
 # Cloud Run
 ################################################################################
 
-/*resource "google_cloud_run_service" "api_service" {
+resource "google_cloud_run_service" "api_service" {
   name     = "data-api"
   location = "us-central1" 
 
