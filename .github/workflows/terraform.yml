@@ -5,14 +5,9 @@ push:
       - develop  
 
 jobs:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
-    - uses: 'actions/checkout@v4'
-
-    - uses: 'google-github-actions/auth@v2'
-      with:
-        project_id: 'my-project'
-        workload_identity_provider: 'projects/1090220856522/locations/global/workloadIdentityPools/my-pool/subject/SUBJECT_ATTRIBUTE_VALUE'
+  steps:
+  - id: 'auth'
+    name: 'Authenticate to Google Cloud'
+    uses: 'google-github-actions/auth@v0.4.0'
+    with:
+      credentials_json: '${{ secrets.GCP_SA_KEY }}'
