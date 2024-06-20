@@ -10,13 +10,9 @@ jobs:
     - name: Checkout del repositorio
       uses: actions/checkout@v2
 
-    - name: Configurar ambiente de Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.3.0
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: abstract-aloe-426819-i2
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
-    - name: Autenticación en GCP
-      run: |
-        gcloud auth activate-service-account --key-file=${{ secrets.GCP_SA_KEY }}
-        gcloud config set project abstract-aloe-426819-i2
