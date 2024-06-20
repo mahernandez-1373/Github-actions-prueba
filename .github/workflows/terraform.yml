@@ -1,9 +1,8 @@
 name: "Terraform Apply"  
 
-on:
-  push:
-    branches:
-      - develop
+push:
+  branches:
+    - develop
 
 jobs:
   authenticate:
