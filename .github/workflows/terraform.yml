@@ -1,7 +1,8 @@
 name: "Terraform Apply"
 
-on:
-  workflow_dispatch:
+push:
+    branches:
+      - develop  # Cambia por la rama en la que deseas desplegar
 
 jobs:
   terraform:
