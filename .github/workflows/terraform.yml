@@ -3,6 +3,9 @@ name: "Terraform Apply"
 on:
   workflow_dispatch:
 
+env:
+  GCP_SA_KEY: "${{ secrets.GCP_SA_KEY }}"
+
 jobs:
   authenticate:
     runs-on: ubuntu-latest
