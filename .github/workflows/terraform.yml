@@ -5,18 +5,23 @@ push:
       - develop  
 
 jobs:
-  permissions:
+  job_id:
+    # Add "id-token" with the intended permissions.
+    permissions:
       contents: 'read'
       id-token: 'write'
 
-  steps:
+    steps:
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
-        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+        workload_identity_provider: 'projects/1090220856522/locations/global/workloadIdentityPools/my-pool/subject/SUBJECT_ATTRIBUTE_VALUE'
+        service_account: 'terraform-iac@abstract-aloe-426819-i2.iam.gserviceaccount.com'
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        version: '>= 363.0.0'
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
