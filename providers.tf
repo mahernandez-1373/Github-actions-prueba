@@ -10,15 +10,3 @@ terraform {
     }
   }
 }
-
-provider "google" {
-  credentials = file("clave.json")
-  project     = "abstract-aloe-426819-i2"
-  region      = "us-central1"
-}
-
-provider "google-beta" {
-  credentials = file("clave.json")
-  project     = "abstract-aloe-426819-i2"
-  region      = "us-central1"
-}
