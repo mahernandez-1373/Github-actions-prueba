@@ -2,7 +2,7 @@ name: "Terraform Apply"
 
 push:
     branches:
-      - develop  # Cambia por la rama en la que deseas desplegar
+      - develop  
 
 jobs:
   terraform:
@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Authenticate Google Cloud 
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
