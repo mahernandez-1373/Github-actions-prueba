@@ -13,16 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          version: 'latest'
-
       - name: Authenticate to GCP
-        id: auth
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          install_components: '["beta"]'  # Añadir componentes necesarios
 
       - name: Verify Authentication
         run: gcloud auth list
