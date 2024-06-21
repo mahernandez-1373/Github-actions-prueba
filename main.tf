@@ -6,19 +6,7 @@
 ################################################################################
 # Cloud SQL Module GCP
 ################################################################################
-resource "google_sql_database_instance" "main" {
-  name             = "postgres-instance"
-  database_version = "POSTGRES_15"
-  region           = "us-central1"
-
-  settings {
-    # Second-generation instance tiers are based on the machine
-    # type. See argument reference below.
-    tier = "db-f1-micro"
-  }
-}
-
-/*module "pg" {
+module "pg" {
   source = "./modules/cloud-sql"
 
   pg_ha_name          = "postgres-db"
@@ -46,12 +34,25 @@ resource "google_cloud_run_service" "api_service" {
   template {
     spec {
       containers {
-        image = "gcr.io/your-project-id/data-api:latest"
-
-        // Configuración para recibir eventos de Pub/Sub
+        image = "gcr.io/abstract-aloe-426819-i2/data-api:latest"
+          env {
+            name  = "DB_HOST"
+            value = 
+        }
         env {
-          name  = "SUBSCRIPTION"
-          value = google_pubsub_subscription.data_subscription.name
+          name  = "DB_NAME"
+          value = google_sql_database.default.name
+        }
+        env {
+          name  = "DB_USER"
+          value = google_sql_user.root.name
+        }
+        env {
+          name  = "DB_PASS"
+          value = google_sql_user.root.password
+        }
+        ports {
+          container_port = 8080
         }
       }
     }
@@ -61,4 +62,4 @@ resource "google_cloud_run_service" "api_service" {
     percent         = 100
     latest_revision = true
   }
-}*/
+}
