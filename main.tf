@@ -9,7 +9,7 @@
 module "pg" {
   source = "./modules/cloud-sql"
 
-  pg_ha_name          = "postgres_db"
+  pg_ha_name          = "postgres-db-01"
   pg_project_id       = "abstract-aloe-426819-i2"
   pg_database_version = "POSTGRES_9_6"
   pg_region           = "us-central1"
