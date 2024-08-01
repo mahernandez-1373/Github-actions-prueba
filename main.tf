@@ -27,7 +27,7 @@ module "pg" {
 # Cloud Run
 ################################################################################
 
-resource "google_cloud_run_service" "api_service" {
+/*resource "google_cloud_run_service" "api_service" {
   name     = "data-api"
   location = "us-central1" 
 
@@ -62,4 +62,4 @@ resource "google_cloud_run_service" "api_service" {
     percent         = 100
     latest_revision = true
   }
-}
+}*/
