@@ -4,7 +4,7 @@ variable "vpc_name" {
   default     = "eks-vpc"
 }
 
-#Prueba
+#Prueba terramate
 
 ################################################################################
 # RDS Module
